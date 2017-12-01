@@ -1,4 +1,4 @@
-# SecureChain toolkit
+# go-securechain
 Set of [SecureChain](https://sc.gophersauce.com) command line tools, written in go.
 
 ## Install
