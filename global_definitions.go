@@ -4,9 +4,7 @@ import (
 	"io/ioutil"
 	"github.com/cheikhshift/form"
 	"gopkg.in/mgo.v2/bson"
-	"strings"
-	"runtime"
-	"fmt"
+	"path/filepath"
 )
 
 const ContentJson string = "application/json"
@@ -17,8 +15,7 @@ const ContentJson string = "application/json"
 // load them.
 const SessionStorePath string = "."
 
-//Key used to encrypt/decrypt session information. Must be a
-// valid AES key. 
+//Key used to encrypt session information
 var Key []byte = []byte("a very very very very secret key")
 
 // Save and encrypt the specified interface
@@ -28,11 +25,7 @@ var Key []byte = []byte("a very very very very secret key")
 func Save(name *string, v interface{}) error{
 
 	str :=  form.Encrypt(Key, ToString(v))
-	separator := "/"
-	if strings.Contains(runtime.GOOS, "indows"){
-		separator = "\\"
-	}
-	pathoffile := fmt.Sprintf("%s%s%s", SessionStorePath,separator, *name)
+	pathoffile := filepath.Join(SessionStorePath, *name)
 	strbytes := []byte(str)
 	err := ioutil.WriteFile(pathoffile, strbytes, 0700)
 	strbytes = nil
@@ -41,20 +34,18 @@ func Save(name *string, v interface{}) error{
 
 // Load a previously saved interface 
 // with function Save(...).
-func Load(name *string) (m bson.M,err error) {
-	separator := "/"
-	if strings.Contains(runtime.GOOS, "indows"){
-		separator = "\\"
-	}
-	pathoffile := fmt.Sprintf("%s%s%s", SessionStorePath,separator, *name)
+func Load(name *string)  (bson.M, error) {
+	var m bson.M
+	pathoffile := filepath.Join(SessionStorePath, *name)
+
 	data, err := ioutil.ReadFile(pathoffile)
 	if err != nil {
-		return
+		return m,err
 	}
 	strdata := string(data)
 	decryptedString := form.Decrypt(Key, strdata)
 	data = nil
 	m,err = ToMap(decryptedString)
-	return
+	return m,err
 }
 

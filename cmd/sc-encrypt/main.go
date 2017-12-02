@@ -66,6 +66,7 @@ func main() {
 		color.Red(fmt.Sprintf("Error: %s", err.Error()))
 		return
 	} else if resp.StatusCode == 500 {
+		// this is to check HTTP status 500
 		responsedata := securechain.ReadBody(resp)
 		securechain.Log(responsedata)
 		responsedata = nil
@@ -80,7 +81,10 @@ func main() {
 		return
 	}
 	sm := m["resp"].(map[string]interface{})
-	if sm["Code"].(float64) == 0 {
+
+	if sm["Code"].(float64) == 500 {
+		color.Red(fmt.Sprintf("Error: %s", sm["Message"].(string)))
+	} else if sm["Code"].(float64) == 0 {
 		if *usefile {
 			wrtout := []byte(sm["Message"].(string))
 			saveto := *output
@@ -91,8 +95,6 @@ func main() {
 		} else {
 			fmt.Println(sm["Message"].(string))
 		}
-	} else {
-		color.Red(fmt.Sprintf("Error: %s", sm["Message"].(string)))
 	}
 
 	responsedata = nil
