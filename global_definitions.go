@@ -15,7 +15,8 @@ const ContentJson string = "application/json"
 // load them.
 const SessionStorePath string = "."
 
-//Key used to encrypt/decrypt session information.
+// Key used to encrypt/decrypt session information. Must
+// be a valid AES key.
 var Key []byte = []byte("a very very very very secret key")
 
 // Save and encrypt the specified interface
