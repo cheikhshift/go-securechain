@@ -15,13 +15,12 @@ const ContentJson string = "application/json"
 // load them.
 const SessionStorePath string = "."
 
-//Key used to encrypt session information
+//Key used to encrypt/decrypt session information.
 var Key []byte = []byte("a very very very very secret key")
 
 // Save and encrypt the specified interface
 // with the specified name. The function will
-// add prefix SessionStorePath to the name specifed,
-// as well as your OS's path separator.
+// add prefix SessionStorePath to the name specifed.
 func Save(name *string, v interface{}) error{
 
 	str :=  form.Encrypt(Key, ToString(v))
