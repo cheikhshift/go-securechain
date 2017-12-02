@@ -1,3 +1,5 @@
+[![GoDoc](https://godoc.org/github.com/cheikhshift/gos?status.svg)](https://godoc.org/github.com/cheikhshift/gos) 
+
 # go-securechain
 Set of [SecureChain](https://sc.gophersauce.com) command line tools, written in go.
 
