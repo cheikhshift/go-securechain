@@ -1,7 +1,7 @@
 [![GoDoc](https://godoc.org/github.com/cheikhshift/go-securechain?status.svg)](https://godoc.org/github.com/cheikhshift/go-securechain) 
 
 # go-securechain
-Set of [SecureChain](https://sc.gophersauce.com) command line tools, written in go.
+Set of [SecureChain](https://sc.gophersauce.com) command line tools, this will facilitate working with the API, written in go.
 
 ## Install
 
