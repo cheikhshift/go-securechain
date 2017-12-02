@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 	"fmt"
-	"github.com/cheikhshift/securechain-cmd"
+	"github.com/cheikhshift/go-securechain"
 	"flag"
 	"time"
 	"strings"
@@ -17,7 +17,7 @@ import (
 
 func main() {
 	
-	text := flag.String("text", "", "Text to decrypt. In Alhpa, use wisely.")
+	text := flag.String("text", "", "Text to decrypt.")
 	hw := flag.Bool("headless", false, "Hide load indicator.")
 	usefile := flag.Bool("file", false, "Add flag to load encrypted data from file.")
 	filename := flag.String("filename","", "Path of file with encrypted data.")
@@ -50,7 +50,6 @@ func main() {
 	token,  err := securechain.Load(sessionfile)
 	req := bson.M{"req": securechain.AuthRequest{ Data: strdata },"token" : token }
 	reqstr :=  securechain.ToString(req)
-	
 	var chn chan int
 	if !*hw {
 		chn = make(chan int)

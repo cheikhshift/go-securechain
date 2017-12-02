@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 	"fmt"
-	"github.com/cheikhshift/securechain-cmd"
+	"github.com/cheikhshift/go-securechain"
 	"flag"
 	"time"
 	"strings"
@@ -49,7 +49,6 @@ func main() {
 	token,  err := securechain.Load(sessionfile)
 	req := bson.M{"req": securechain.AuthRequest{ Data: strdata },"token" : token }
 	reqstr :=  securechain.ToString(req)
-	
 	var chn chan int
 	if !*hw {
 		chn = make(chan int)
@@ -84,7 +83,7 @@ func main() {
 
 	if sm["Code"].(float64) == 500 {
 		color.Red(fmt.Sprintf("Error: %s", sm["Message"].(string)))
-	} else if sm["Code"].(float64) == 0 {
+	} else if sm["Code"].(float64) == 200 {
 		if *usefile {
 			wrtout := []byte(sm["Message"].(string))
 			saveto := *output

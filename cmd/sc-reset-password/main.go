@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 	"fmt"
-	"github.com/cheikhshift/securechain-cmd"
+	"github.com/cheikhshift/go-securechain"
 	"flag"
 	"time"
 	"strings"
