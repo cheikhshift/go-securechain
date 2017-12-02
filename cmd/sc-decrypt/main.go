@@ -17,7 +17,7 @@ import (
 
 func main() {
 	
-	text := flag.String("text", "", "Text to encrypt.")
+	text := flag.String("text", "", "Text to decrypt.")
 	hw := flag.Bool("headless", false, "Hide load indicator.")
 	usefile := flag.Bool("file", false, "Add flag to load encrypted data from file.")
 	filename := flag.String("filename","", "Path of file with encrypted data.")
