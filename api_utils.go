@@ -12,27 +12,27 @@ import (
 //API base path
 const prefx string = "https://sc.gophersauce.com/momentum/funcs?name=%s"
 
-// Path to Login endpoint
+// URL of Login endpoint.
 var Login string = Endpoint("Login")
 
-// Path to LoginVPhone : Login verify phone
+// URL of LoginVPhone endpoint: Login verify phone
 // Use this endpoint to confirm an SMS code
 // and retrieve an access token.
 var VerifyLogin string = Endpoint("LoginVPhone")
 
-// Path to Join endpoint.
+// URL of Join endpoint.
 var Join string = Endpoint("Join")
 
-//Path to reset password endpoint
+// URL of reset password endpoint.
 var ResetPassword = Endpoint("ForgotPassword") 
 
-//Path to Encrypt endpoint.
+//URL of Encrypt endpoint.
 var Encrypt = Endpoint("Encrypt") 
 
-//Path to Decrypt endpoint.
+// URL of Decrypt endpoint.
 var Decrypt = Endpoint("Decrypt") 
 
-//Path to delete a user token.
+// URL of DeleteToken endpoint.
 var DeleteToken = Endpoint("DeleteToken")
 
 
@@ -52,7 +52,7 @@ func ToString(v interface{}) string {
 }
 
 
-// Convert json string to bson.M
+// Convert json string to bson.M.
 func ToMap(s string) (m bson.M,err error) {
 	b := []byte(s)
 	err = json.Unmarshal(b, &m)
@@ -60,7 +60,7 @@ func ToMap(s string) (m bson.M,err error) {
 	return
 }
 
-// Log secure chain API response
+// Log secure chain API response.
 // b - Bytes of API response.
 // return bson.M of response.
 // map.
