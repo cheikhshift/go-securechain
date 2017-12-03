@@ -44,7 +44,7 @@ type AuthRequest struct {
 
 // Convert specified interface to
 // a json string.
-// v - interface to convert to json
+// v - interface to convert to json.
 // return json string of interface.
 func ToString(v interface{}) string {
 	data, _ := json.Marshal(&v)
@@ -53,11 +53,12 @@ func ToString(v interface{}) string {
 
 
 // Convert json string to bson.M.
-func ToMap(s string) (m bson.M,err error) {
+func ToMap(s string) (bson.M, error) {
+	var m bson.M
 	b := []byte(s)
-	err = json.Unmarshal(b, &m)
+	err := json.Unmarshal(b, &m)
 	b = nil
-	return
+	return m,err
 }
 
 // Log secure chain API response.
@@ -92,16 +93,16 @@ func Log(b []byte) bson.M {
 
 // Return bytes of *http.Response body.
 // r - response to read body form.
-func ReadBody(r *http.Response) (body []byte) {
-	body, _ = ioutil.ReadAll(r.Body)
-	return
+func ReadBody(r *http.Response)  []byte {
+	body, _ := ioutil.ReadAll(r.Body)
+	return body
 }
 
 // Generate a string of URL path
 // to specified SecureChain API endpoint.
-func Endpoint(s string) (r string) {
-	r = fmt.Sprintf(prefx, s)
-	return
+func Endpoint(s string) string {
+	r := fmt.Sprintf(prefx, s)
+	return r
 }
 
 // Wrap the specified interface
