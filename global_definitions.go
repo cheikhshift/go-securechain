@@ -9,7 +9,7 @@ import (
 
 const ContentJson string = "application/json"
 
-
+var Mockname = Mockfilename()
 
 //Path of folder to save session files and 
 // load them.
@@ -19,9 +19,20 @@ const SessionStorePath string = "."
 // be a valid AES key.
 var Key []byte = []byte("a very very very very secret key")
 
+
+// Generate mock file name
+func Mockfilename() * string {
+	name := "file.gen"
+	return &name
+}
+
+
+
 // Save and encrypt the specified interface
 // with the specified name. The function will
 // add prefix SessionStorePath to the name specifed.
+// @test
+// @case Mockname, bson.M{} @equal nil 
 func Save(name *string, v interface{}) error{
 
 	str :=  form.Encrypt(Key, ToString(v))
@@ -34,6 +45,10 @@ func Save(name *string, v interface{}) error{
 
 // Load a previously saved interface 
 // with function Save(...).
+// If testing please make sure you used
+// func Save(...
+// @test
+// @case Mockname @equal bson.M{},nil
 func Load(name *string)  (bson.M, error) {
 	var m bson.M
 	pathoffile := filepath.Join(SessionStorePath, *name)

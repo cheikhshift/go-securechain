@@ -46,6 +46,8 @@ type AuthRequest struct {
 // a json string.
 // v - interface to convert to json.
 // return json string of interface.
+// @test
+// @case bson.M{} @equal "{}"
 func ToString(v interface{}) string {
 	data, _ := json.Marshal(&v)
 	return string(data)
@@ -53,6 +55,9 @@ func ToString(v interface{}) string {
 
 
 // Convert json string to bson.M.
+// @import "gopkg.in/mgo.v2/bson"
+// @test
+// @case "{}" @equal bson.M{}, nil
 func ToMap(s string) (bson.M, error) {
 	var m bson.M
 	b := []byte(s)
@@ -65,6 +70,8 @@ func ToMap(s string) (bson.M, error) {
 // b - Bytes of API response.
 // return bson.M of response.
 // map.
+// @test
+// @case []byte("{}") @equal bson.M{}
 func Log(b []byte) bson.M {
 	var m bson.M
 	err := json.Unmarshal(b, &m)
@@ -93,6 +100,11 @@ func Log(b []byte) bson.M {
 
 // Return bytes of *http.Response body.
 // r - response to read body form.
+// @test
+// @import "net/http"
+// @import "strings"
+// @import "io/ioutil"
+// @case &http.Response{Body : ioutil.NopCloser(strings.NewReader("test") )} @equal []byte("test")
 func ReadBody(r *http.Response)  []byte {
 	body, _ := ioutil.ReadAll(r.Body)
 	return body
@@ -100,6 +112,8 @@ func ReadBody(r *http.Response)  []byte {
 
 // Generate a string of URL path
 // to specified SecureChain API endpoint.
+// @test
+// @case "Login" @equal "https://sc.gophersauce.com/momentum/funcs?name=Login"
 func Endpoint(s string) string {
 	r := fmt.Sprintf(prefx, s)
 	return r
@@ -108,6 +122,8 @@ func Endpoint(s string) string {
 // Wrap the specified interface
 // arround a bson.M map, under key
 // req.
+// @test
+// @case bson.M{} @equal bson.M{"req":bson.M{}} 
 func WrapReq(v interface{}) bson.M {
 	nbson := bson.M{"req" : v}
 	return nbson
